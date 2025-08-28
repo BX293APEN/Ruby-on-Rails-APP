@@ -28,7 +28,7 @@ services:                                   # 作成したいコンテナを列�
     volumes:                                # マウント
       - ${VOLUME}:/home/${USER_NAME}/${WS}  # ホストディレクトリ: コンテナ内ディレクトリ
 
-    restart: no                             # unless-stopped always ...
+    restart: unless-stopped                 # no unless-stopped always ...
 
     environment:                            # コンテナ内の環境変数を設定
       - TZ=${TIME_ZONE}
