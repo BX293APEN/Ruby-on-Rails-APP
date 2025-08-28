@@ -33,6 +33,8 @@ services:                                   # 作成したいコンテナを列�
     environment:                            # コンテナ内の環境変数を設定
       - TZ=${TIME_ZONE}
       - LANG=${LANG}
+      - USER_NAME=${USER_NAME}
+      - WS=${WS}
     
     ports:                                  # ポートを接続
       - "3000:3000"                         # ホストマシンのポート番号:コンテナのポート番号

@@ -25,8 +25,7 @@ RUN apt update && \
     echo "${USER_NAME}:${PASSWORD}" | chpasswd && \
     mkdir -p /home/${USER_NAME}/${ENTRY_DIR} && \
     echo "${LANG} UTF-8" > /etc/locale.gen && \ 
-    locale-gen && \
-    rm -f /home/${USER_NAME}/${WS}/tmp/pids/server.pid
+    locale-gen
 RUN update-locale LANG=${LANG}
 
 COPY ${ENTRY_POINT} /home/${USER_NAME}/${ENTRY_DIR}/${ENTRY_POINT}
