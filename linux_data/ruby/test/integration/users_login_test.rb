@@ -16,7 +16,7 @@ class InvalidPasswordTest < UsersLogin
 
     test "login with valid email/invalid password" do
         post login_path, params: { session: { email:    @user.email,
-                                            password: "invalid" } }
+                                              password: "invalid" } }
         assert_not is_logged_in?
         assert_template 'sessions/new'
         assert_not flash.empty?
@@ -30,7 +30,7 @@ class ValidLogin < UsersLogin
     def setup
         super
         post login_path, params: { session: { email:    @user.email,
-                                            password: 'password' } }
+                                              password: 'password' } }
     end
 end
 
@@ -69,10 +69,10 @@ class LogoutTest < Logout
     test "redirect after logout" do
         follow_redirect!
         assert_select "a[href=?]", login_path
-        assert_select "a[href=?]", logout_path,  count: 0
+        assert_select "a[href=?]", logout_path,      count: 0
         assert_select "a[href=?]", user_path(@user), count: 0
     end
-    
+
     test "should still work after logout in second window" do
         delete logout_path
         assert_redirected_to root_url
@@ -85,7 +85,7 @@ class RememberingTest < UsersLogin
         log_in_as(@user, remember_me: '1')
         assert_not cookies[:remember_token].blank?
     end
-  
+
     test "login without remembering" do
         # Cookieを保存してログイン
         log_in_as(@user, remember_me: '1')

@@ -33,10 +33,10 @@ RUN chmod +x /home/${USER_NAME}/${ENTRY_DIR}/${ENTRY_POINT}
 
 WORKDIR /home/${USER_NAME}/${WS}/ruby/
 
-COPY ${VOLUME}/ruby/Gemfile /home/${USER_NAME}/${WS}/Gemfile
-COPY ${VOLUME}/ruby/Gemfile.lock /home/${USER_NAME}/${WS}/Gemfile.lock
+COPY ${VOLUME}/ruby/Gemfile /home/${USER_NAME}/${WS}/ruby/Gemfile
+COPY ${VOLUME}/ruby/Gemfile.lock /home/${USER_NAME}/${WS}/ruby/Gemfile.lock
 
 RUN apt install -y \
-    nodejs sqlite3 build-essential libssl-dev libreadline-dev zlib1g-dev
-
-RUN bundle install
+    nodejs sqlite3 build-essential libssl-dev libreadline-dev zlib1g-dev \
+    && \
+    bundle install

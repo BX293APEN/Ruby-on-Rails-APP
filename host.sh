@@ -5,13 +5,17 @@ set -a
 source .env
 set +a
 
-DB_FILE="${VOLUME}/ruby/db/development.sqlite3" 
+# Gemfile.lockの更新
+GEMFILE="${VOLUME}/ruby/Gemfile"
+LOCKFILE="${VOLUME}/ruby/Gemfile.lock"
 
-if [ -f "$DB_FILE" ]; then
-  echo "SQLite DB file exists at $DB_FILE. Skipping db:create."
-else
-  echo "SQLite DB file not found. Running 'docker compose run web rake db:create'..."
-  docker compose run web rake db:create
+if [ ! -f "${LOCKFILE}" ]; then
+    sudo apt update
+    sudo apt install -y ruby-full libpq-dev
+    sudo gem install bundler
+    bundle install --gemfile "${GEMFILE}"
 fi
+
+docker compose run --rm web rake db:create
 
 docker compose up --build -d
